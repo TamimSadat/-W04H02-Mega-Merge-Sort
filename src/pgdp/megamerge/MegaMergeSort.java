@@ -1,5 +1,7 @@
 package pgdp.megamerge;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Arrays;
 
 public class MegaMergeSort {
@@ -47,13 +49,47 @@ public class MegaMergeSort {
 	 */
 	protected int[] merge(int[] arr1, int[] arr2) {
 		// TODO
-		return null;
+		int[] newarr = new int[arr1.length + arr2.length];
+		int arr1x = 0;
+		int arr2y = 0;
+		int newArrayz = 0;
+		while (arr1x < arr1.length && arr2y < arr2.length) {//Geht nur so lange bis index out of bounce
+			if (arr1[arr1x] < arr2[arr2y]) {
+				newarr[newArrayz] = arr1[arr1x];
+				newArrayz++;
+				arr1x++;
+			}
+			else {
+				newarr[newArrayz] = arr2[arr2y];
+				newArrayz++;
+				arr2y++;
+			}
+		}
+		//letzten Lücken füllen
+		if (arr1x < arr1.length) {
+			for (int i = arr1x; i < arr1.length; i++) {
+				newarr[newArrayz] = arr1[arr1x];
+				newArrayz++;
+				arr1x++;
+			}
+		}
+		if (arr2y < arr2.length) {
+			for (int i = arr2y; i < arr2.length; i++) {
+				newarr[newArrayz] = arr2[arr2y];
+				newArrayz++;
+				arr2y++;
+			}
+		}
+
+		return newarr;
 	}
 
 	public static void main(String[] args) {
 		MegaMergeSort mms = new MegaMergeSort();
-		int[] arr = new int[] { 1, 2, 6, 7, 4, 3, 8, 9, 0, 5 };
-		int[] res = mms.megaMergeSort(arr, 4);
+		//int[] arr = new int[] { 1, 2, 6, 7, 4, 3, 8, 9, 0, 5 };
+		int[] arr1 = new int[] {1, 3};
+		int[] arr2 = new int[] {2, 4};
+		int[] res = mms.merge(arr1, arr2);
 		System.out.println(Arrays.toString(res));
 	}
 }
